@@ -1,0 +1,2 @@
+*{margin:0;padding:0}.wrapper{height:50.625vw;margin:0 auto;max-width:90vw;scroll-behavior:smooth;text-align:center}#images-wrapper{height:100%}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}img{animation:fadeIn .5s ease-in-out;aspect-ratio:16/9;max-width:100%;object-fit:cover}#images-wrapper::-webkit-scrollbar{width:0}@media (max-width:768px){.wrapper{height:90vw}img{aspect-ratio:1/1}}
+/*# sourceMappingURL=main.6a4b7918.css.map*/
