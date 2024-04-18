@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState, useRef } from "react";
 
-import { getAllMockImages } from "../../services/image-service";
 import { useDebounce } from "./hooks/use-debounce";
+import { getAllMockImages } from "../../services/image-service";
 
 const recordsPerLoad = 10;
 
