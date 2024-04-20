@@ -15,6 +15,8 @@ const PreloadImage = ({ src }) => {
 };
 
 const Carousel = () => {
+  let endY = 0;
+  let startY = 0;
   const imagesWrapperRef = useRef(null);
 
   const [page, setPage] = useState(1);
@@ -26,17 +28,50 @@ const Carousel = () => {
 
   const setWheelData = (...args) => {
     const val = args?.[0];
+    console.log("val", val);
 
     if (imgIndex + 1 === imagesData?.length) {
       setImgIndex(0);
-    } else if (val) {
+    } else if (val > 0) {
       setImgIndex((old) => (old += 1));
-    } else if (imgIndex > 0) {
+    } else if (val < 0) {
       setImgIndex((old) => (old -= 1));
     }
   };
 
+  const setTouchData = (...args) => {
+    console.log("args", args);
+  };
+
+  const handleTouchStart = (event) => {
+    // Get the starting Y position of the touch
+    startY = event.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (event) => {
+    // Get the ending Y position of the touch
+    endY = event.changedTouches[0].clientY;
+
+    // Calculate the difference between starting and ending Y positions
+    const deltaY = endY - startY;
+
+    // Determine if the swipe is upward or downward based on deltaY
+    if (deltaY > 0 && imgIndex > 0) {
+      console.log("Swiped downward");
+      setImgIndex((old) => (old -= 1));
+      // Do something for downward swipe
+    } else if (deltaY < 0) {
+      console.log("Swiped upward");
+      setImgIndex((old) => (old += 1));
+      // Do something for upward swipe
+    } else {
+      console.log("No vertical swipe");
+      // No vertical swipe occurred
+    }
+  };
+
   const debounce = useDebounce(setWheelData, 60);
+  const debounceTouch = useDebounce(setTouchData, 120);
 
   const getImages = useCallback(async () => {
     const data = await getAllMockImages(page);
@@ -72,13 +107,20 @@ const Carousel = () => {
 
   const handleWheel = (event) => {
     const scrollSpeed = event.deltaY;
+    console.log("scrollSpeed", scrollSpeed);
 
     debounce(scrollSpeed);
   };
 
   return (
     <>
-      <div id="images-wrapper" ref={imagesWrapperRef} onWheel={handleWheel}>
+      <div
+        id="images-wrapper"
+        ref={imagesWrapperRef}
+        onWheel={handleWheel}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <img
           key={activeImage?.id}
           src={activeImage?.urls?.full}
