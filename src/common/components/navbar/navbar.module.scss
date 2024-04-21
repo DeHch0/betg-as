@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 60px;
+  padding-inline: 24px;
+  background: linear-gradient(
+    92.43deg,
+    #ffeba5 0%,
+    #ffc700 88.31%,
+    #ffe27b 104.38%
+  );
+
+  .title {
+    font-weight: 600;
+    color: #000000de;
+    font-size: 1.75rem;
+    letter-spacing: 1px;
+  }
+}
