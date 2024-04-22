@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/betg-as/static/css/main.f0b2adf3.css",
-    "main.js": "/betg-as/static/js/main.fad9c7a3.js",
+    "main.css": "/betg-as/static/css/main.80caf858.css",
+    "main.js": "/betg-as/static/js/main.dd68ced1.js",
     "index.html": "/betg-as/index.html",
-    "main.f0b2adf3.css.map": "/betg-as/static/css/main.f0b2adf3.css.map",
-    "main.fad9c7a3.js.map": "/betg-as/static/js/main.fad9c7a3.js.map"
+    "static/media/wave1.svg": "/betg-as/static/media/wave1.0fa702234d82d6562b1f613463d40b61.svg",
+    "static/media/wave2.svg": "/betg-as/static/media/wave2.021b4cd57a36e6888d7f8fea59e2934e.svg",
+    "main.80caf858.css.map": "/betg-as/static/css/main.80caf858.css.map",
+    "main.dd68ced1.js.map": "/betg-as/static/js/main.dd68ced1.js.map"
   },
   "entrypoints": [
-    "static/css/main.f0b2adf3.css",
-    "static/js/main.fad9c7a3.js"
+    "static/css/main.80caf858.css",
+    "static/js/main.dd68ced1.js"
   ]
 }
