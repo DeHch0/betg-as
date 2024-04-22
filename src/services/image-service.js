@@ -13,7 +13,6 @@ export const getAllMockImages = async (page) => {
     `${fetchUrl}photos?client_id=${APIKey}${pageParam}`
   );
 
-  console.log("resp", resp);
   if (resp?.status === 200) {
     return resp?.data;
   } else {

@@ -73,109 +73,58 @@ The Carousel component is a reusable component for displaying a carousel of imag
 
 ### Usage
 
-### ```jsx
+import Carousel from './path/to/Carousel';
+function App() {
+return (
 
-### import Carousel from './path/to/Carousel';
-
-###
-
-### function App() {
-
-### return (
-
-### <div className="App">
-
-### <Carousel />
-
-### </div>
-
-### );
-
-### }
+<div className="App">
+<Carousel />
+</div>
+);
+}
 
 ### Props
 
-### The Carousel component does not accept any props.
+### The Carousel component accept (service) prop that is fetcher function.
 
-###
+### useCarousel Hook - The useCarousel hook provides functionality for handling carousel navigation logic.
 
-### useCarousel Hook
+import { useCarousel } from './path/to/hooks/useCarousel';
 
-### The useCarousel hook provides functionality for handling carousel navigation logic.
-
-###
-
-### Usage
-
-### jsx
-
-### Copy code
-
-### import { useCarousel } from './path/to/hooks/useCarousel';
-
-###
-
-### function Carousel() {
-
-### const { handleWheel, handleTouchEnd, handleTouchStart, imagesData, activeImage, imagesWrapperRef } = useCarousel();
-
-###
-
-### return (
-
-### // JSX for Carousel component
-
-### );
-
-### }
+function Carousel() {
+const { handleWheel, handleTouchEnd, handleTouchStart, imagesData, activeImage, imagesWrapperRef } = useCarousel();
+}
 
 ### Returns
 
-### handleWheel: Function to handle mouse wheel events.
+- handleWheel: Function to handle mouse wheel events.
 
-### handleTouchEnd: Function to handle touch end events.
+- handleTouchEnd: Function to handle touch end events.
 
-### handleTouchStart: Function to handle touch start events.
+- handleTouchStart: Function to handle touch start events.
 
-### imagesData: Array of image data for the carousel.
+- imagesData: Array of image data for the carousel.
 
-### activeImage: Currently active image.
+- activeImage: Currently active image.
 
-### imagesWrapperRef: Reference to the images wrapper element.
+- imagesWrapperRef: Reference to the images wrapper element.
 
-### PreloadImage Component
+### PreloadImage Component - The PreloadImage component is a utility component for preloading images.
 
-### The PreloadImage component is a utility component for preloading images.
+import PreloadImage from './path/to/PreloadImage';
 
-###
+function App() {
 
-### Usage
+return (
 
-### jsx
+<div className="App">
+<PreloadImage src="path/to/image.jpg" />
+</div>
+);
 
-### Copy code
+}
 
-### import PreloadImage from './path/to/PreloadImage';
-
-###
-
-### function App() {
-
-### return (
-
-### <div className="App">
-
-### <PreloadImage src="path/to/image.jpg" />
-
-### </div>
-
-### );
-
-### }
-
-### Props
-
-### src: The source URL of the image to preload.
+### Props (src) => src: The source URL of the image to preload.
 
 ### Hooks Directory
 
@@ -187,58 +136,30 @@ The Carousel component is a reusable component for displaying a carousel of imag
 
 ### The useDebounce hook provides functionality for debouncing function calls.
 
-###
+import { useDebounce } from './path/to/hooks/useDebounce';
 
-### jsx
+function Component() {
+const debouncedFunction = useDebounce(callback, delay);
+}
 
-### Copy code
-
-### import { useDebounce } from './path/to/hooks/useDebounce';
-
-###
-
-### function Component() {
-
-### const debouncedFunction = useDebounce(callback, delay);
-
-###
-
-### // Use debouncedFunction in your component
-
-### }
-
-### Returns
-
-### debouncedFunction: Debounced version of the provided function.
+Returns - debouncedFunction: Debounced version of the provided function.
 
 ### Services Directory
 
 ### The services directory contains service functions used in the application.
 
-###
+### Image Service - The Image Service provides functions for fetching image data.
 
-### Image Service
+import { getAllMockImages } from './path/to/services/imageService';
 
-### The Image Service provides functions for fetching image data.
+async function fetchData(page) {
 
-###
+const data = await getAllMockImages(page);
 
-### jsx
+// Use fetched data
 
-### Copy code
+}
 
-### import { getAllMockImages } from './path/to/services/imageService';
+Functions
 
-###
-
-### async function fetchData(page) {
-
-### const data = await getAllMockImages(page);
-
-### // Use fetched data
-
-### }
-
-### Functions
-
-### getAllMockImages(page): Fetches a page of mock image data.
+getAllMockImages(page): Fetches a page of mock image data.

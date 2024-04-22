@@ -1,12 +1,11 @@
 import { useEffect, useCallback, useState, useRef } from "react";
 
 import { useDebounce } from "../../../common/hooks/use-debounce";
-import { getAllMockImages } from "../../../services/image-service";
 
 const totalRecords = process.env.REACT_APP_TOTAL_RECORDS || 100;
 const recordsPerLoad = process.env.REACT_APP_LIMIT_RECORDS_PER_REQUEST || 10;
 
-export const useCarousel = () => {
+export const useCarousel = (service) => {
   let endY = 0;
   let startY = 0;
   const imagesWrapperRef = useRef(null);
@@ -49,7 +48,8 @@ export const useCarousel = () => {
     if (page * recordsPerLoad > totalRecords) {
       return;
     }
-    const data = await getAllMockImages(page);
+
+    const data = await service(page);
 
     if (page === 1) {
       setActiveImage(data?.[0]);
@@ -62,6 +62,7 @@ export const useCarousel = () => {
         return data;
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   useEffect(() => {
@@ -86,7 +87,7 @@ export const useCarousel = () => {
 
     const scrollSpeed = event.deltaY;
 
-    debounce(scrollSpeed, event);
+    debounce(scrollSpeed);
   };
 
   return {
