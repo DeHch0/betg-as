@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export const useDebounce = (callback, delay) => {
   const timeoutRef = useRef(null);
   let argValue = 0;
+  let counter = 0;
 
   useEffect(() => {
     return () => {
@@ -14,6 +15,7 @@ export const useDebounce = (callback, delay) => {
 
   const debounce = (...args) => {
     let val = args?.[0];
+    counter += 1;
 
     if (val !== 0) {
       argValue = val;
@@ -23,7 +25,15 @@ export const useDebounce = (callback, delay) => {
     }
 
     timeoutRef.current = setTimeout(() => {
-      callback(argValue);
+      if (counter < 2 && argValue > 0) {
+        callback(1);
+      } else if (counter < 2 && argValue < 0) {
+        callback(-1);
+      } else {
+        callback(argValue);
+      }
+      argValue = 0;
+      counter = 0;
     }, delay);
   };
 

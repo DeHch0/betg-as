@@ -1,99 +1,49 @@
-import React, { useEffect, useCallback, useState, useRef } from "react";
+import React from "react";
 
-import { getAllMockImages } from "../../services/image-service";
-import { useDebounce } from "./hooks/use-debounce";
+import { useCarousel } from "./hooks/use-carousel";
+import PreloadImage from "../../common/components/preload-image/preload-image";
 
-const recordsPerLoad = 10;
+import { ReactComponent as Wave1 } from "../../assets/wave1.svg";
+import { ReactComponent as Wave2 } from "../../assets/wave2.svg";
 
-const PreloadImage = ({ src }) => {
-  useEffect(() => {
-    const img = new Image();
-    img.src = src;
-  }, [src]);
+import styles from "./carousel.module.scss";
 
-  return null;
-};
-
-const Carousel = () => {
-  const imagesWrapperRef = useRef(null);
-
-  const [page, setPage] = useState(1);
-  console.log("page", page);
-  const [imgIndex, setImgIndex] = useState(0);
-  const [imagesData, setImagesData] = useState();
-  console.log("imagesData", imagesData);
-  const [activeImage, setActiveImage] = useState();
-
-  const setWheelData = (...args) => {
-    const val = args?.[0];
-
-    if (imgIndex + 1 === imagesData?.length) {
-      setImgIndex(0);
-    } else if (val) {
-      setImgIndex((old) => (old += 1));
-    } else if (imgIndex > 0) {
-      setImgIndex((old) => (old -= 1));
-    }
-  };
-
-  const debounce = useDebounce(setWheelData, 60);
-
-  const getImages = useCallback(async () => {
-    const data = await getAllMockImages(page);
-
-    if (page === 1) {
-      setActiveImage(data?.[0]);
-    }
-
-    setImagesData((old) => {
-      if (old?.length) {
-        return [...old, ...data];
-      } else {
-        return data;
-      }
-    });
-  }, [page]);
-
-  useEffect(() => {
-    console.log("imgIndex", imgIndex);
-    if (
-      imgIndex % recordsPerLoad === 5 &&
-      imgIndex >= page * recordsPerLoad - 5
-    ) {
-      setPage((old) => (old += 1));
-    }
-
-    setActiveImage(imagesData?.[imgIndex]);
-  }, [imgIndex, imagesData]);
-
-  useEffect(() => {
-    getImages();
-  }, [getImages]);
-
-  const handleWheel = (event) => {
-    const scrollSpeed = event.deltaY;
-
-    debounce(scrollSpeed);
-  };
+const Carousel = ({ service }) => {
+  const {
+    handleWheel,
+    handleTouchEnd,
+    handleTouchStart,
+    imagesData,
+    activeImage,
+    imagesWrapperRef,
+  } = useCarousel(service);
 
   return (
     <>
-      <div id="images-wrapper" ref={imagesWrapperRef} onWheel={handleWheel}>
+      <div
+        id="images-wrapper"
+        ref={imagesWrapperRef}
+        className={styles.imagesWrapper}
+        onWheel={handleWheel}
+        onTouchEnd={handleTouchEnd}
+        onTouchStart={handleTouchStart}
+      >
         <img
           key={activeImage?.id}
           src={activeImage?.urls?.full}
           alt={activeImage?.links?.slug}
         />
 
-        {/* {imagesData &&
-          imagesData.slice(-recordsPerLoad).map((elm) => {
-            return <PreloadImage src={elm?.urls?.full} key={elm.id} />;
-          })} */}
-
         {imagesData &&
           imagesData.map((elm) => {
             return <PreloadImage src={elm?.urls?.full} />;
           })}
+
+        <div className={styles.waves}>
+          <Wave1 />
+
+          <Wave2 />
+        </div>
       </div>
     </>
   );

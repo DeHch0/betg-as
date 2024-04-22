@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Demo](https://dehch0.github.io/betg-as/).
 
 ## Available Scripts
 
@@ -37,7 +36,7 @@ If you aren't satisfied with the build tool and configuration choices, you can `
 
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However, we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 ## Learn More
 
@@ -68,3 +67,100 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Carousel Component
+
+The Carousel component is a reusable component for displaying a carousel of images. It supports touch and mouse wheel events for navigation.
+
+### Usage
+
+import Carousel from './path/to/Carousel';
+function App() {
+return (
+
+<div className="App">
+<Carousel />
+</div>
+);
+}
+
+### Props
+
+### The Carousel component accept (service) prop that is fetcher function.
+
+### useCarousel Hook - The useCarousel hook provides functionality for handling carousel navigation logic.
+
+import { useCarousel } from './path/to/hooks/useCarousel';
+
+function Carousel() {
+const { handleWheel, handleTouchEnd, handleTouchStart, imagesData, activeImage, imagesWrapperRef } = useCarousel();
+}
+
+### Returns
+
+- handleWheel: Function to handle mouse wheel events.
+
+- handleTouchEnd: Function to handle touch end events.
+
+- handleTouchStart: Function to handle touch start events.
+
+- imagesData: Array of image data for the carousel.
+
+- activeImage: Currently active image.
+
+- imagesWrapperRef: Reference to the images wrapper element.
+
+### PreloadImage Component - The PreloadImage component is a utility component for preloading images.
+
+import PreloadImage from './path/to/PreloadImage';
+
+function App() {
+
+return (
+
+<div className="App">
+<PreloadImage src="path/to/image.jpg" />
+</div>
+);
+
+}
+
+### Props (src) => src: The source URL of the image to preload.
+
+### Hooks Directory
+
+### The hooks directory contains custom hooks used in the application.
+
+###
+
+### useDebounce Hook
+
+### The useDebounce hook provides functionality for debouncing function calls.
+
+import { useDebounce } from './path/to/hooks/useDebounce';
+
+function Component() {
+const debouncedFunction = useDebounce(callback, delay);
+}
+
+Returns - debouncedFunction: Debounced version of the provided function.
+
+### Services Directory
+
+### The services directory contains service functions used in the application.
+
+### Image Service - The Image Service provides functions for fetching image data.
+
+import { getAllMockImages } from './path/to/services/imageService';
+
+async function fetchData(page) {
+
+const data = await getAllMockImages(page);
+
+// Use fetched data
+
+}
+
+Functions
+
+getAllMockImages(page): Fetches a page of mock image data.
